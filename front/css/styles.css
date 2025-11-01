@@ -9,7 +9,6 @@
 	justify-content: space-between;
 	align-items: center;
 	background: #03021a;
-	color: #fff;
 	padding: 0.5rem 1.5rem;
     padding-top: 15px;
     padding-bottom: 15px;
@@ -22,25 +21,59 @@
 .navbar a{
     background-color: #141137;
     border: solid 2px #2a284a;
-    color: white;
     margin-left: 5px;
     margin-right: 5px;
     padding: 10px;
     border-radius: 3px;
     text-decoration: none;
     display: inline-block;
-    
+
 }
 .navbar a:hover{
     background-color: #2a284a;
-    transform: translateY(-2px);
+
 }
 
 .icon-btn{
-    color: white;
     padding: 10px;
     border-radius: 3px;
     background-color: #141137;
+}
+
+.seccion{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.container{
+    margin: 15px;
+    background-color: #2a284a;
+    padding: 20px;
+    padding-bottom: 70px;
+    border-radius: 10px;
+    transform: translateY(0);
+    transition: transform 0.3s ease;
+    width: 650px;
+
+}
+
+.container *{
+    background-color: inherit;
+}
+
+.container:hover{
+    transform: translateY(-7px);
+}
+
+.card-title{
+    display: flex;
+    gap: 20px;
+    justify-content: space-between;
+}
+
+#index-intro{
+    background-color: #1a1a2d;
+    border: solid 3px #2a284a;
 }
 
 #nav-index,
