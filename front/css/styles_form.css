@@ -1,0 +1,33 @@
+.form-row{
+    display: flex;
+    gap: 50px;
+    margin-bottom: 20px;
+    justify-content: center;
+}
+.form-row label{
+    display: block;
+    margin-bottom: 10px;
+    width: 250px;
+}
+.form-row input{
+    width: 100%;
+    padding: 15px;
+    box-sizing: border-box;
+    border-style: none;
+    background-color: #15132f;
+    border-radius: 5px;
+    height: 40px;
+}
+.form-text{
+    text-align: center;
+}
+textarea {
+    width: 100%;
+    padding: 8px;
+    margin-top: 15px;
+    box-sizing: border-box;
+    resize: none;
+    border-style: none;
+    background-color: #15132f !important;
+    border-radius: 5px;
+}
