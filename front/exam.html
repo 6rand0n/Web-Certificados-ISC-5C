@@ -1,0 +1,173 @@
+<!-- Esta es la pagina de EXAMEN -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/exam.css">
+</head>
+<body>
+    <!-- HEADER -->
+    <nav class="navbar">
+        <div class="header-logo">
+            *imagen*
+        </div>
+        <div class="header-buttons">
+            <a href="index.html" id="nav-btn">Home</a>
+            <a href="certifications.html" id="nav-btn">Certifications</a>
+            <a href="contact.html" id="nav-btn">Contact</a>
+            <a href="about.html" id="nav-btn">About Us</a>
+        </div>
+        <div class="header-login">
+                <span id="userName" class="user-name"></span>
+                    <button id="loginBtn" class="icon-btn" title="Login">
+                        <span class="login-icon">Login</span>
+                    </button>
+                    <button id="logoutBtn" class="icon-btn" title="Logout" style="display:none;">
+                        <span class="logout-icon">🚪</span>
+                    </button>
+            </div>
+    </nav>
+    <!-- FIN HEADER -->
+     <form id="quizForm" style="display:none;">
+                <div id="listaPreguntas"></div>
+                <div class="quiz-enviar">
+                  <button type="submit" class="btn-enviar">Enviar respuestas</button>  
+                </div>
+                
+            </form>
+            
+            <div id="resultado"></div>
+    
+<script>
+
+const API = "http://localhost:3000/api/questions";
+const quizForm = document.getElementById("quizForm");
+const listaPreguntas = document.getElementById("listaPreguntas");
+const resultado = document.getElementById("resultado");
+let preguntas = [];
+
+async function cargarPreguntas() {
+  const res = await fetch(`${API}/start`, { 
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "Authorization": `Bearer ${localStorage.getItem('token')}`
+    }
+  });
+
+  const data = await res.json();
+  preguntas = data.questions;
+  i = 1;
+
+  // Limpiar contenido anterior
+  listaPreguntas.innerHTML = "";
+
+  // Crear contenedor general
+  const quizContainer = document.createElement("div");
+  quizContainer.className = "quiz-container";
+
+  // Agregar preguntas dentro del contenedor
+  preguntas.forEach(q => {
+    const questionCard = document.createElement("div");
+    questionCard.className = "question-card";
+
+    questionCard.innerHTML = `
+      <p class="question-text"><strong>${q.id}.</strong> ${q.text}</p>
+      <div class="options">
+        ${q.options.map(opt => `
+          <label class="option-item">
+            <input type="radio" name="q_${q.id}" value="${opt}"> ${opt}
+          </label>
+        `).join("")}
+      </div>
+    `;
+
+    quizContainer.appendChild(questionCard);
+  });
+
+  // Agregar todo al DOM
+  listaPreguntas.appendChild(quizContainer);
+  quizForm.style.display = "block";
+  resultado.innerHTML = "";
+}
+
+
+quizForm.addEventListener("submit", async e => {
+  e.preventDefault();
+  const enviarBtn = quizForm.querySelector(".btn-enviar");
+  enviarBtn.style.display = "none";
+
+  const btnEnviar = document.querySelector(".btn-enviar");
+  btnEnviar.disabled = true; // 🔹 Desactivar botón al enviar
+
+  const answers = preguntas.map(q => {
+    const selected = document.querySelector(`input[name="q_${q.id}"]:checked`);
+    return { id: q.id, answer: selected ? selected.value : "" };
+  });
+
+  const res = await fetch(`${API}/submit`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "Authorization": `Bearer ${localStorage.getItem('token')}`
+    },
+    body: JSON.stringify({ answers })
+  });
+
+  const data = await res.json();
+
+  // Limpiar resultados anteriores
+  resultado.innerHTML = "";
+
+  // Crear contenedor general para resultados
+  const resultContainer = document.createElement("div");
+  resultContainer.className = "quiz-container";
+
+  // Encabezado de resultado
+  const header = document.createElement("h2");
+  header.textContent = `Resultado: ${data.score}/${data.total}`;
+  resultado.appendChild(header);
+
+  // Crear tarjetas por pregunta
+  data.details.forEach(d => {
+    const card = document.createElement("div");
+    card.className = "question-card";
+
+    card.innerHTML = `
+      <p class="question-text">${d.text}</p>
+      <div class="options">
+        <p>Tu respuesta: ${d.yourAnswer ?? "(sin responder)"}</p>
+        <p>Correcta: ${d.correctAnswer}</p>
+        <p class="${d.correct ? "ok" : "bad"}">
+          ${d.correct ? "✔️ Correcto" : "❌ Incorrecto"}
+        </p>
+      </div>
+    `;
+
+    resultContainer.appendChild(card);
+  });
+
+  // Agregar todo al div de resultado
+  resultado.appendChild(resultContainer);
+});
+
+document.addEventListener("DOMContentLoaded", function() {
+  cargarPreguntas(); 
+});
+</script>
+<script src="js/login.js"></script>
+
+</body>
+
+  <footer>
+    <h2>Proyecto Escolar 2025</h2>
+    <h3>Brandon Javier Becerra Davila</h3>
+    <h3>Bruno Gonzalez Castillo</h3>
+    <h3>Gael Emiliano Nafarrate Lopez</h3>
+  </footer>
+</html>
