@@ -5,16 +5,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Contact</title>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="css/styles_form.css">
+    <link rel="icon" href="images/favicon.png" type="image/png">
 </head>
 <body>
     <!-- HEADER -->
     <nav class="navbar">
         <div class="header-logo">
-            *imagen*
+                <img src="images/logo_2.png" class="mini-logo" alt="">
         </div>
         <div class="header-buttons">
             <a href="index.html" id="nav-btn">Home</a>
@@ -25,10 +26,10 @@
         <div class="header-login">
             <span id="userName" class="user-name"></span>
                 <button id="loginBtn" class="icon-btn" title="Login">
-                    <span class="login-icon">Login</span>
+                    <span class="login-icon" style="background-color: transparent;">Login</span>
                 </button>
                 <button id="logoutBtn" class="icon-btn" title="Logout" style="display:none;">
-                    <span class="logout-icon">🚪</span>
+                    <span class="logout-icon" style="background-color: transparent;">🚪</span>
                 </button>
         </div>
     </nav>
@@ -116,12 +117,32 @@ document.getElementById("contactForm").addEventListener("submit", async function
 
 
     <script src="js/login.js"></script>
+<footer>
+            <div class="footer-nombres">
+                <h2>Proyecto Escolar 2025</h2>
+                <h3>Brandon Javier Becerra Davila</h3>
+                <h3>Bruno Gonzalez Castillo</h3>
+                <h3>Gael Emiliano Nafarrate Lopez</h3>
+            </div>
+           <div class="footer-content">
+                <h3>Absolute Learning 2025</h3>
+                <p><em>“Aprende, certifica y demuestra tus habilidades.”</em></p>
+                 
+                <div class="footer-links">
+                    <p>Enlaces</p>
+                    <a href="index.html">Inicio</a>
+                    <a href="certifications.html">Certificaciones</a>
+                    <a href="about.html">Acerca de</a>
+                    <a href="contact.html">Contacto</a>
+                </div>
+  
+                <div class="footer-credits">
+                    <p>Proyecto Escolar 2025</p>
+                    <p>Brandon Javier Becerra Dávila | Bruno González Castillo | Gael Emiliano Nafarrate López</p>
+                </div>
+ 
+                <p>© 2025 CodeCert Academy. Todos los derechos reservados.</p>
+           </div>
+        </footer>
 </body>
-
-  <footer>
-    <h2>Proyecto Escolar 2025</h2>
-    <h3>Brandon Javier Becerra Davila</h3>
-    <h3>Bruno Gonzalez Castillo</h3>
-    <h3>Gael Emiliano Nafarrate Lopez</h3>
-  </footer>
 </html>
