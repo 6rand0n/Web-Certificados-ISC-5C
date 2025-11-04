@@ -1,0 +1,197 @@
+<!-- Esta es la pagina de CERTIFICACIONES -->
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+        <link rel="stylesheet" href="css/styles.css">
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    </head>
+    <body>
+        <!-- HEADER -->
+        <nav class="navbar">
+            <div class="header-logo">
+                <img src="images/logo_2.png" class="mini-logo" alt="">
+            </div>
+            <div class="header-buttons">
+                <a href="index.html" id="nav-btn">Home</a>
+                <a href="certifications.html" id="nav-certifications">Certifications</a>
+                <a href="contact.html" id="nav-btn">Contact</a>
+                <a href="about.html" id="nav-btn">About Us</a>
+            </div>
+            <div class="header-login">
+                <span id="userName" class="user-name"></span>
+                    <button id="loginBtn" class="icon-btn" title="Login">
+                        <span class="login-icon" style="background-color: transparent;">Login</span>
+                    </button>
+                    <button id="logoutBtn" class="icon-btn" title="Logout" style="display:none;">
+                        <span class="logout-icon" style="background-color: transparent;">🚪</span>
+                    </button>
+            </div>
+        </nav>
+        <!-- FIN HEADER -->
+
+        <!-- Modal de Login -->
+        <div id="loginModal" class="login-dropdown">
+            <div class="login-box">
+                <div class="login-header">
+                    <h2>Iniciar Sesión</h2>
+                    <span class="close" id="closeModal">&times;</span>
+                </div>
+                <form id="formLogin" class="login-form">
+                    <input type="text" id="login" placeholder="Usuario" required>
+                    <input type="password" id="password" placeholder="Contraseña" required>
+                    <button type="submit">Entrar</button>
+                </form>
+            </div>
+        </div>
+        <!-- FIN MODAL DE LOGIN -->
+
+        
+
+        <section class="seccion">
+            <div class="container">
+
+                <div class="card-title">
+                    <h3>Certificación en Python</h3>
+                    <img src="images/phyton.png" alt="Python">
+                </div>
+                <div class="card-details">
+                    <p><strong>Descripción:</strong> Aprende a desarrollar aplicaciones y programas en Python, uno de los lenguajes más populares y versátiles en la actualidad. Esta certificación cubre desde los conceptos básicos hasta la creación de proyectos completos, incluyendo manejo de datos, automatización, y desarrollo web.</p>
+                    <p><strong>Ventajas:</strong> Reconocimiento internacional, mejora laboral, oportunidad de trabajar en proyectos reales, desarrollo de habilidades en ciencia de datos, inteligencia artificial y automatización de procesos.</p>
+                    <p><strong>Puntuación mínima:</strong> 75%</p>
+                    <p><strong>Costo:</strong> $750 MXN</p>
+                </div>
+                <div class="card-btn">
+                    <button id="btnPagar">Pagar</button>
+                    <button id="btnCargar">Iniciar Examen</button>
+                </div>
+            </div>
+
+            <!-- CERTIFICACIONES DESHABILITADAS -->
+            <div class="container">
+                <div class="card-title">
+                    <h3>Certificación en JavaScript</h3>
+                    <img src="images/js.png" alt="JavaScript">
+                </div>
+                <div class="card-details">
+                    <p><strong>Descripción:</strong> Aprende a desarrollar aplicaciones web interactivas usando JavaScript, el lenguaje principal del desarrollo frontend. Esta certificación incluye desde fundamentos básicos hasta conceptos avanzados como programación asíncrona, manipulación del DOM, APIs y desarrollo con frameworks modernos.</p>
+                    <p><strong>Ventajas:</strong> Reconocimiento internacional, mejora laboral, habilidades en desarrollo web moderno, capacidad de crear interfaces interactivas, aplicaciones dinámicas y trabajar con tecnologías complementarias como HTML, CSS y frameworks populares.</p>
+                    <p><strong>Puntuación mínima:</strong> 70%</p>
+                    <p><strong>Costo:</strong> $700 MXN</p>
+                </div>
+                <div class="card-btn">
+                    <button class="disabled-btn">Pagar</button>
+                    <button id="btnCargarJS" class="disabled-btn">Iniciar Examen</button>
+                </div>
+                <div class="card-disabled">
+                    <h3>Este examen estara habilitado a partir del 15 de Noviembre</h3>
+                </div>
+            </div>
+            <div class="container">
+                <div class="card-title">
+                    <h3>Certificación en C++</h3>
+                    <img src="images/cpp.png" alt="C++">
+                </div>
+                <div class="card-details">
+                    <p><strong>Descripción:</strong> Aprende a programar en C++, un lenguaje fundamental para el desarrollo de sistemas, videojuegos y software de alto rendimiento. La certificación cubre desde estructuras de datos y algoritmos hasta programación avanzada, incluyendo manejo de memoria y optimización de código.</p>
+                    <p><strong>Ventajas:</strong> Reconocimiento internacional, habilidades en desarrollo de software de alto rendimiento, preparación para trabajar en videojuegos, sistemas embebidos, simuladores y aplicaciones complejas, fortaleciendo la lógica y resolución de problemas.</p>
+                    <p><strong>Puntuación mínima:</strong> 65%</p>
+                    <p><strong>Costo:</strong> $850 MXN</p>
+                </div>
+                <div class="card-btn">
+                    <button class="disabled-btn">Pagar</button>
+                    <button class="disabled-btn" id="btnCargarCpp">Iniciar Examen</button>
+                </div>
+                <div class="card-disabled">
+                    <h3>Este examen estara habilitado a partir del 12 de Noviembre</h3>
+                </div>
+
+            </div>
+            <div class="container">
+                <div class="card-title">
+                    <h3>Certificación en C#</h3>
+                    <img src="images/c_sharp.png" alt="C#">
+                </div>
+                <div class="card-details">
+                    <p><strong>Descripción:</strong> Aprende a desarrollar aplicaciones y soluciones en C#, uno de los lenguajes más utilizados en el desarrollo de software empresarial y videojuegos. Esta certificación abarca desde conceptos básicos hasta la creación de aplicaciones de escritorio, web y juegos usando .NET y Unity.</p>
+                    <p><strong>Ventajas:</strong> Reconocimiento internacional, mejora laboral, capacidad de crear aplicaciones profesionales, desarrollo de habilidades en programación orientada a objetos, integración con bases de datos y desarrollo de videojuegos.</p>
+                    <p><strong>Puntuación mínima:</strong> 70%</p>
+                    <p><strong>Costo:</strong> $800 MXN</p>
+                </div>
+                <div class="card-btn">
+                    <button class="disabled-btn">Pagar</button>
+                    <button class="disabled-btn" id="btnCargarCSharp">Iniciar Examen</button>
+                </div>
+                <div class="card-disabled">
+                    <h3>Este examen estara habilitado a partir del 18 de Noviembre</h3>
+                </div>
+            </div>
+        </section>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const btnCargar = document.getElementById("btnCargar");
+
+  if (!btnCargar) return;
+
+  btnCargar.addEventListener("click", async () => {
+    const token = localStorage.getItem("token");
+
+    if (!token) {
+      Swal.fire({
+        icon: "warning",
+        title: "Acceso denegado",
+        text: "Debes iniciar sesión para poder presentar el examen.",
+        confirmButtonColor: "#d33",
+      });
+      return;
+    }
+
+    try {
+      // Validar si el usuario tiene acceso al examen
+      const res = await fetch("http://localhost:3000/api/certifications/python", {
+        method: "POST",
+        headers: { Authorization: `Bearer ${token}` },
+      });
+
+      const data = await res.json();
+
+      if (res.ok && data.status === "OK") {
+        Swal.fire({
+          icon: "success",
+          title: "Acceso concedido",
+          text: "Redirigiendo al examen...",
+          confirmButtonColor: "#1e3d58",
+          timer: 2000,
+          showConfirmButton: false,
+        });
+        setTimeout(() => {
+          window.location.href = "exam.html";
+        }, 2000);
+      } else {
+        Swal.fire({
+          icon: "error",
+          title: "No puedes iniciar el examen",
+          text: data.error ?? "No se cumplen las condiciones para presentar el examen.",
+          confirmButtonColor: "#d33",
+        });
+      }
+    } catch (err) {
+      console.error(err);
+      Swal.fire({
+        icon: "error",
+        title: "Error de conexión",
+        text: "No se pudo conectar con el servidor.",
+        confirmButtonColor: "#d33",
+      });
+    }
+  });
+});
+    </script>
+<script src="js/login.js"></script>
+
+    </body>
+</html>

@@ -1,0 +1,44 @@
+[
+  {
+    "cuenta": "gael",
+    "contrasena": "1234",
+    "nombre": "Gael Emiliano Nafarrate López",
+    "paid": true,
+    "hasAttempt": false
+  },
+  {
+    "cuenta": "bruno",
+    "contrasena": "aaa",
+    "nombre": "Bruno Gonzalez Castillo",
+    "paid": true,
+    "hasAttempt": false
+  },
+  {
+    "cuenta": "brandon",
+    "contrasena": "abcd",
+    "nombre": "Brandon Javier Becerra Davila",
+    "paid": true,
+    "hasAttempt": false
+  },
+  {
+    "cuenta": "sofia",
+    "contrasena": "efgh",
+    "nombre": "Sofía Jiménez",
+    "paid": false,
+    "hasAttempt": false
+  },
+  {
+    "cuenta": "pedro",
+    "contrasena": "ijkl",
+    "nombre": "Pedro Díaz",
+    "paid": false,
+    "hasAttempt": false
+  },
+  {
+    "cuenta": "maria",
+    "contrasena": "mnop",
+    "nombre": "María Ruiz",
+    "paid": false,
+    "hasAttempt": false
+  }
+]

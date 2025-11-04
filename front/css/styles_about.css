@@ -1,0 +1,47 @@
+.about-grid-1,.about-grid-2,.about-grid-3{
+    display: grid;
+    padding: 20px;
+    column-gap: 15px;
+}
+.about-grid-1{
+    grid-template-columns: 1.70fr 1fr;
+}
+.about-grid-2{
+    grid-template-columns: 1fr 2fr;
+}
+.about-grid-3{
+    grid-template-columns: 1fr 1fr 1fr;
+}
+.about-container{
+    margin: 15px;
+    background-color: #2a284a;
+    padding: 25px;
+    padding-bottom: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.4);
+}
+.about-title{
+
+    margin-bottom: 30px;
+}
+.about-content{
+    background-color: rgb(27, 24, 44);
+    padding: 10px;
+    padding-left: 30px;
+    border-radius: 10px;
+    height: 200px;
+}
+.about-card{
+    background-color: rgb(27, 24, 44);
+    padding: 10px;
+    margin: 20px;
+    border-radius: 5px;
+}
+.imagen{
+  width: 220px;
+  height: 220px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 10px;
+  margin-left: 60px;
+}

@@ -1,0 +1,257 @@
+<!-- Esta es la pagina de EXAMEN -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/exam.css">
+</head>
+<body>
+    <!-- HEADER -->
+    <nav class="navbar">
+        <div class="header-logo">
+            <img src="images/logo_2.png" class="mini-logo" alt="">
+        </div>
+        <div class="header-buttons">
+            <a href="index.html" id="nav-btn">Home</a>
+            <a href="certifications.html" id="nav-btn">Certifications</a>
+            <a href="contact.html" id="nav-btn">Contact</a>
+            <a href="about.html" id="nav-btn">About Us</a>
+        </div>
+        <div class="header-login">
+                <span id="userName" class="user-name"></span>
+                    <button id="loginBtn" class="icon-btn" title="Login">
+                        <span class="login-icon" style="background-color: transparent;">Login</span>
+                    </button>
+                    <button id="logoutBtn" class="icon-btn" title="Logout" style="display:none;">
+                        <span class="logout-icon" style="background-color: transparent;">🚪</span>
+                    </button>
+            </div>
+    </nav>
+    <!-- FIN HEADER -->
+
+    <div class="containter">
+    <div id="infoExamen" class="info-examen-card">
+    </div>  
+    </div>
+    
+
+     <form id="quizForm" style="display:none;">
+                <div id="listaPreguntas"></div>
+                <div class="quiz-enviar">
+                  <button type="submit" class="btn-enviar">Enviar respuestas</button>  
+                </div>
+                
+            </form>
+            
+            <div id="resultado"></div>
+    
+<script>
+
+const API = "http://localhost:3000/api/questions";
+const quizForm = document.getElementById("quizForm");
+const listaPreguntas = document.getElementById("listaPreguntas");
+const infoExamenDiv = document.getElementById("infoExamen");
+const resultado = document.getElementById("resultado");
+let preguntas = [];
+let currentAttemptId = null;
+
+async function obtenerDatosUsuario() {
+    const token = localStorage.getItem('token');
+    if (!token) return null;
+    const res = await fetch("http://localhost:3000/api/profile", {
+        method: "GET",
+        headers: { "Authorization": `Bearer ${token}` }
+    });
+    
+    if (res.ok) {
+        const data = await res.json();
+        const hoy = new Date().toLocaleDateString('es-ES', { day: 'numeric', month: 'long', year: 'numeric' });
+        
+        return {
+            nombre: data.usuario.nombre,
+            fecha: hoy,
+            certificacion: "Entry Level Python Programmer"
+        };
+    }
+    return null;
+}
+
+async function cargarPreguntas() {
+  const res = await fetch(`${API}/start`, { 
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "Authorization": `Bearer ${localStorage.getItem('token')}`
+    }
+  });
+
+  const data = await res.json();
+  
+  currentAttemptId = data.quizAttemptId;
+  preguntas = data.questions;
+
+  // Limpiar contenido anterior
+  listaPreguntas.innerHTML = "";
+  infoExamenDiv.innerHTML = "";
+
+  const datosInfo = await obtenerDatosUsuario();
+  
+  if (datosInfo) {
+    infoExamenDiv.innerHTML = `
+      <hr>
+      <p><strong>Certificación:</strong> ${datosInfo.certificacion}</p>
+      <p><strong>Presenta:</strong> ${datosInfo.nombre}</p>
+      <p><strong>Fecha:</strong> ${datosInfo.fecha}</p>
+      <hr>
+    `;
+  } else {
+      infoExamenDiv.innerHTML = `<p>Error: No se pudo cargar la información del usuario.</p>`;
+  }
+
+  // Crear contenedor general
+  const quizContainer = document.createElement("div");
+  quizContainer.className = "quiz-container";
+
+  let i=1;
+  // Agregar preguntas dentro del contenedor
+  preguntas.forEach(q => {
+    const questionCard = document.createElement("div");
+    questionCard.className = "question-card";
+
+    questionCard.innerHTML = `
+      <p class="question-text"><strong>${i++}.</strong> ${q.text}</p>
+      <div class="options">
+        ${q.options.map(opt => `
+          <label class="option-item">
+            <input type="radio" name="q_${q.id}" value="${opt}"> ${opt}
+          </label>
+        `).join("")}
+      </div>
+    `;
+
+    quizContainer.appendChild(questionCard);
+  });
+
+  // Agregar todo al DOM
+  listaPreguntas.appendChild(quizContainer);
+  quizForm.style.display = "block";
+  resultado.innerHTML = "";
+}
+
+
+quizForm.addEventListener("submit", async e => {
+  e.preventDefault();
+
+  const answers = preguntas.map(q => {
+    const selected = document.querySelector(`input[name="q_${q.id}"]:checked`);
+    return { id: q.id, answer: selected ? selected.value : "" };
+  });
+
+  const res = await fetch(`${API}/submit`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "Authorization": `Bearer ${localStorage.getItem('token')}`
+    },
+    body: JSON.stringify({ 
+        answers,
+        attemptId: currentAttemptId
+      })
+  });
+
+  const data = await res.json();
+
+if((data.score/data.total) >= 0.75){
+    const token = localStorage.getItem('token');
+    const finalAttemptId = data.attemptId;
+
+    Swal.fire({
+      icon: "success",
+      title: "¡Felicidades!",
+      text: "Has aprobado el examen con una puntuación de "+ data.score +" de "+ data.total +".",
+      confirmButtonColor: "#1e3d58"
+    }
+    
+    ).then(async () => {
+      try {
+        const res = await fetch(`http://localhost:3000/api/pdf/${finalAttemptId}/certificate`, {
+            method: "GET",
+            headers: {
+                Authorization: `Bearer ${token}`
+            },
+        });
+        if (!res.ok) {
+            const errorText = await res.text();
+            throw new Error(`Error ${res.status}: Fallo al generar el certificado. ${errorText}`);
+        }
+
+        // Obtener la respuesta como Blob (datos binarios del PDF)
+        const pdfBlob = await res.blob();
+
+        // Crea una URL temporal para el Blob
+        const url = URL.createObjectURL(pdfBlob);
+
+        const newWindow = window.open(url, '_blank'); 
+
+        // Manejo de bloqueo de pop-ups (mejor práctica)
+        if (!newWindow || newWindow.closed || typeof newWindow.closed === 'undefined') {
+            console.error('Ventana emergente bloqueada. No se pudo abrir el PDF.');
+            // Si falla la apertura, informamos al usuario y seguimos.
+            Swal.fire({
+                icon: "warning",
+                title: "Ventana Bloqueada",
+                text: "El navegador bloqueó la ventana del certificado. Desactiva el bloqueador de pop-ups.",
+                confirmButtonColor: "#d33"
+            });
+        }
+
+        // Limpiar la URL temporal
+        URL.revokeObjectURL(url);
+
+        window.location.href = "certifications.html";
+    } catch (error) {
+        console.error("Error al obtener/descargar el PDF:", error.message);
+        Swal.fire({
+            icon: "error",
+            title: "Error de Descarga",
+            text: error.message || "No se pudo generar ni descargar el certificado. Revisa la consola.",
+            confirmButtonColor: "#d33"
+        });
+
+        window.location.href = "certifications.html";
+      }
+    });
+  }else{
+
+    Swal.fire({
+      icon: "error",
+      title: "Lo siento",
+      text: "No has aprobado el examen. Tu puntuación es de "+ data.score +" de "+ data.total +".",
+      confirmButtonColor: "#d33"
+    }
+    ).then(() => { 
+      window.location.href = "certifications.html";
+    });
+  }
+});
+
+document.addEventListener("DOMContentLoaded", function() {
+  cargarPreguntas(); 
+});
+</script>
+<script src="js/login.js"></script>
+
+</body>
+
+  <footer>
+    <h2>Proyecto Escolar 2025</h2>
+    <h3>Brandon Javier Becerra Davila</h3>
+    <h3>Bruno Gonzalez Castillo</h3>
+    <h3>Gael Emiliano Nafarrate Lopez</h3>
+  </footer>
+</html>

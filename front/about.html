@@ -1,0 +1,171 @@
+<!-- Esta es la pagina de ACERCA DE NOSOTROS -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/styles_about.css">
+</head>
+<body>
+    <!-- HEADER -->
+    <nav class="navbar">
+        <div class="header-logo">
+            <img src="images/logo_2.png" class="mini-logo" alt="">
+        </div>
+        <div class="header-buttons">
+            <a href="index.html" id="nav-btn">Home</a>
+            <a href="certifications.html" id="nav-btn">Certifications</a>
+            <a href="contact.html" id="nav-btn">Contact</a>
+            <a href="about.html" id="nav-about">About Us</a>
+        </div>
+         <div class="header-login">
+                <span id="userName" class="user-name"></span>
+                <button id="loginBtn" class="icon-btn" title="Login">
+                    <span class="login-icon" style="background-color: transparent;">Login</span>
+                </button>
+                <button id="logoutBtn" class="icon-btn" title="Logout" style="display:none;">
+                    <span class="logout-icon" style="background-color: transparent;">🚪</span>
+                </button>
+            </div>
+    </nav>
+    <!-- FIN HEADER -->
+
+    <!-- Modal de Login -->
+    <div id="loginModal" class="login-dropdown">
+        <div class="login-box">
+            <div class="login-header">
+                <h2>Iniciar Sesión</h2>
+                <span class="close" id="closeModal">&times;</span>
+            </div>
+            <form id="formLogin" class="login-form">
+                <input type="text" id="login" placeholder="Usuario" required>
+                <input type="password" id="password" placeholder="Contraseña" required>
+                <button type="submit">Entrar</button>
+            </form>
+        </div>
+    </div>
+    <!-- FIN MODAL DE LOGIN -->
+
+    <div class="seccion">
+        <div class="about-grid-1">
+            <div class="about-container">
+                <div class="about-title">
+                    <h1>> Quienes Somos</h1>
+                </div>
+                <div class="about-content">
+                    <h4>
+                        Somos una plataforma dedicada a reconocer y validar el conocimiento de programadores a través de certificaciones en los lenguajes más utilizados del mundo.
+                    </h4>                    
+                    <h4>Nuestro objetivo es ofrecer una forma rápida, confiable y accesible de demostrar habilidades técnicas sin depender de instituciones tradicionales.</h4>
+                </div>
+            </div>
+            <div class="about-container">
+                <div class="about-title">
+                    <h1>> Nuestra Mision</h1>
+                </div>
+                <div class="about-content">
+                    <h4>
+                        Nuestra misión es brindar oportunidades de validación profesional a cualquier persona interesada en la programación, sin importar su nivel o experiencia.
+                    </h4>
+                    <h4>Creemos que el talento no se mide por los años de estudio, sino por la capacidad de resolver problemas reales con código.</h4>
+                </div>
+            </div>
+        </div>
+        <div class="about-grid-2">
+            <div class="about-container">
+                <div class="about-title">
+                    <h1>> Nuestra Vision</h1>
+                </div>
+                <div class="about-content">
+                    <h4>
+                        Aspiramos a convertirnos en una de las principales referencias en certificaciones digitales para programadores de habla hispana, fomentando la educación práctica y la mejora continua en tecnología.
+                    </h4>    
+                </div>
+            </div>
+            <div class="about-container">
+                <div class="about-title">
+                    <h1>> Que hacemos?</h1>
+                </div>
+                <div class="about-content">
+                    <h4>
+                        Desarrollamos evaluaciones interactivas diseñadas para medir conocimientos de programación en distintos lenguajes.
+                    </h4>
+                    <h4>
+                        Cada examen genera un certificado digital único que los usuarios pueden compartir en su portafolio, redes o currículum profesional.
+                    </h4>
+                </div>
+            </div>
+        </div>
+        <div class="about-grid-3">
+            <!--  -->
+            <div class="about-container">
+                <div class="about-img">
+                    <img class="imagen" src="images/gael.png" alt="">
+                </div>
+                <div class="about-card">
+                    <h2>Nombre</h2>
+                    Gael Emiliano Nafarrate Lopez
+                </div>
+                <div class="about-card">
+                    <h2>Especialidad</h2>
+                    Automatización y Desarrollo Backend con Python
+                </div>
+                <div class="about-card">
+                    <h2>Descripcion</h2>
+                    Apasionado por la programación eficiente y la resolución de problemas reales mediante código. Ha desarrollado herramientas internas para automatización y análisis de datos en entornos empresariales. Su enseñanza se centra en la claridad, la práctica y el pensamiento lógico.
+                </div>
+            </div>
+            <!--  -->
+            <div class="about-container">
+                <div class="about-img">
+                    <img class="imagen" src="images/brandon.png" alt="">
+                </div>
+                <div class="about-card">
+                    <h2>Nombre</h2>
+                    Brandon Javier Becerra Davila
+                </div>
+                <div class="about-card">
+                    <h2>Especialidad</h2>
+                    Programación de Alto Rendimiento en C++ y C#
+                </div>
+                <div class="about-card">
+                    <h2>Descripcion</h2>
+                    Ingeniero con experiencia en sistemas de alto rendimiento, desarrollo de videojuegos y simulaciones. Enseña a dominar la eficiencia del hardware y el control de recursos. Su enfoque está en formar programadores capaces de optimizar cada línea de código.
+                </div>
+            </div>
+            <!--  -->
+            <div class="about-container">
+                <div class="about-img">
+                    <img class="imagen" src="images/bruno.png" alt="">
+                </div>
+                <div class="about-card">
+                    <h2>Nombre</h2>
+                    Bruno Gonzalez Castillo
+                </div>
+                <div class="about-card">
+                    <h2>Especialidad</h2>
+                    Desarrollo Web Interactivo con JavaScript
+                </div>
+                <div class="about-card">
+                    <h2>Descripcion</h2>
+                    Desarrollador frontend con una visión moderna del diseño web. Combina la programación y la estética visual para enseñar cómo crear interfaces dinámicas, accesibles y responsivas. Cree firmemente en el aprendizaje a través de la experimentación y la creatividad.
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <script src="js/login.js"></script>
+    <footer>
+      <h2>Proyecto Escolar 2025</h2>
+      <h3>Brandon Javier Becerra Davila</h3>
+      <h3>Bruno Gonzalez Castillo</h3>
+      <h3>Gael Emiliano Nafarrate Lopez</h3>
+    </footer>    
+</body>
+
+</html>

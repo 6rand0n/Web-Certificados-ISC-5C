@@ -1,0 +1,127 @@
+<!-- Esta es la pagina de CONTACTO -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/styles_form.css">
+</head>
+<body>
+    <!-- HEADER -->
+    <nav class="navbar">
+        <div class="header-logo">
+            *imagen*
+        </div>
+        <div class="header-buttons">
+            <a href="index.html" id="nav-btn">Home</a>
+            <a href="certifications.html" id="nav-btn">Certifications</a>
+            <a href="contact.html" id="nav-contact">Contact</a>
+            <a href="about.html" id="nav-btn">About Us</a>
+        </div>
+        <div class="header-login">
+            <span id="userName" class="user-name"></span>
+                <button id="loginBtn" class="icon-btn" title="Login">
+                    <span class="login-icon">Login</span>
+                </button>
+                <button id="logoutBtn" class="icon-btn" title="Logout" style="display:none;">
+                    <span class="logout-icon">🚪</span>
+                </button>
+        </div>
+    </nav>
+    <!-- FIN HEADER -->
+
+    <!-- Modal de Login -->
+        <div id="loginModal" class="login-dropdown">
+            <div class="login-box">
+                <div class="login-header">
+                    <h2>Iniciar Sesión</h2>
+                    <span class="close" id="closeModal">&times;</span>
+                </div>
+                <form id="formLogin" class="login-form">
+                    <input type="text" id="login" placeholder="Usuario" required>
+                    <input type="password" id="password" placeholder="Contraseña" required>
+                    <button type="submit">Entrar</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- FIN MODAL DE LOGIN -->
+
+    <section class="seccion">
+        <div class="container">
+            <form action="/contacto" method="post" id="contactForm">
+
+                <div class="form-row">
+                    <div>
+                        <label for="nombre">Nombre:</label>
+                        <input type="text" id="nombre" name="nombre" required>
+                    </div>
+                    <div>
+                        <label for="apellidos">Apellidos:</label>
+                        <input type="text" id="apellidos" name="apellidos" required>    
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div>
+                        <label for="email">Correro Electronico:</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <div>
+                        <label for="numero">Numero</label>
+                        <input type="tel" id="numero" name="numero" required>    
+                    </div>
+                </div>
+                <br>
+                <div class="form-text">
+                    <label for="pregunta">Contenido:</label>
+                    <textarea name="pregunta" id="pregunta" rows="5" required></textarea>    
+                </div>
+               <br>
+               <button type="submit">Enviar</button> 
+
+            </form>
+        </div>
+    </section>
+
+    <script>
+document.getElementById("contactForm").addEventListener("submit", async function(e) {
+    e.preventDefault();
+
+    const data = {
+        nombre: document.getElementById("nombre").value,
+        apellidos: document.getElementById("apellidos").value,
+        email: document.getElementById("email").value,
+        numero: document.getElementById("numero").value,
+        pregunta: document.getElementById("pregunta").value
+    };
+
+    const response = await fetch("http://localhost:3000/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data)
+    });
+
+    if (response.ok) {
+        Swal.fire("Mensaje Enviado", "Tu información ha sido recibida correctamente.", "success");
+        document.getElementById("contactForm").reset();
+    } else {
+        Swal.fire("Error", "Hubo un problema al enviar el mensaje.", "error");
+    }
+});
+</script>
+
+
+    <script src="js/login.js"></script>
+</body>
+
+  <footer>
+    <h2>Proyecto Escolar 2025</h2>
+    <h3>Brandon Javier Becerra Davila</h3>
+    <h3>Bruno Gonzalez Castillo</h3>
+    <h3>Gael Emiliano Nafarrate Lopez</h3>
+  </footer>
+</html>
