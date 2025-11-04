@@ -132,65 +132,87 @@
         </section>
 
 <script>
-document.addEventListener("DOMContentLoaded", () => {
-  const btnCargar = document.getElementById("btnCargar");
+    document.addEventListener("DOMContentLoaded", () => {
+        
+    const btnCargar = document.getElementById("btnCargar");
+    const btnPagar = document.getElementById("btnPagar"); 
 
-  if (!btnCargar) return;
+    btnCargar.addEventListener("click", async () => {
+        const token = localStorage.getItem("token");
 
-  btnCargar.addEventListener("click", async () => {
-    const token = localStorage.getItem("token");
+        if (!token) {
+            Swal.fire({
+                icon: "warning",
+                title: "Acceso denegado",
+                text: "Debes iniciar sesión para poder presentar el examen.",
+                confirmButtonColor: "#d33",
+            });
+            return;
+        }
 
-    if (!token) {
-      Swal.fire({
-        icon: "warning",
-        title: "Acceso denegado",
-        text: "Debes iniciar sesión para poder presentar el examen.",
-        confirmButtonColor: "#d33",
-      });
-      return;
-    }
+        try {
+            const res = await fetch("http://localhost:3000/api/certifications/python", {
+                method: "POST", 
+                headers: { Authorization: `Bearer ${token}` },
+            });
 
-    try {
-      // Validar si el usuario tiene acceso al examen
-      const res = await fetch("http://localhost:3000/api/certifications/python", {
-        method: "POST",
-        headers: { Authorization: `Bearer ${token}` },
-      });
+            const data = await res.json();
 
-      const data = await res.json();
+            if (res.ok && data.status === "OK") {
+                Swal.fire({
+                    icon: "success",
+                    title: "Acceso concedido",
+                    text: "Redirigiendo al examen...",
+                    confirmButtonColor: "#1e3d58",
+                    showConfirmButton: false,
+                    timer: 1500, 
+                }).then(() => {
+                    window.location.href = "exam.html";
+                });
+            } else {
+                Swal.fire({
+                    icon: "error",
+                    title: "No puedes iniciar el examen",
+                    text: data.error ?? "No se cumplen las condiciones para presentar el examen.",
+                    confirmButtonColor: "#d33",
+                });
+            }
+        } catch (err) {
+            console.error(err);
+            Swal.fire({
+                icon: "error",
+                title: "Error de conexión",
+                text: "No se pudo conectar con el servidor para verificar el acceso.",
+                confirmButtonColor: "#d33",
+            });
+        }
+    });
 
-      if (res.ok && data.status === "OK") {
+    btnPagar.addEventListener("click", async () => {
+        const token = localStorage.getItem("token");
+
+        if (!token) {
+            Swal.fire({
+                icon: "warning",
+                title: "Acceso denegado",
+                text: "Debes iniciar sesión para poder pagar el examen.",
+                confirmButtonColor: "#d33",
+            });
+            return;
+        }
+        
+        // 💡 Aquí iría la lógica para llamar a tu API de pagos
         Swal.fire({
-          icon: "success",
-          title: "Acceso concedido",
-          text: "Redirigiendo al examen...",
-          confirmButtonColor: "#1e3d58",
-          timer: 2000,
-          showConfirmButton: false,
-        });
-        setTimeout(() => {
-          window.location.href = "exam.html";
-        }, 2000);
-      } else {
-        Swal.fire({
-          icon: "error",
-          title: "No puedes iniciar el examen",
-          text: data.error ?? "No se cumplen las condiciones para presentar el examen.",
-          confirmButtonColor: "#d33",
-        });
-      }
-    } catch (err) {
-      console.error(err);
-      Swal.fire({
-        icon: "error",
-        title: "Error de conexión",
-        text: "No se pudo conectar con el servidor.",
-        confirmButtonColor: "#d33",
-      });
-    }
-  });
+             icon: "info",
+             title: "Pago Simulado",
+             text: "Procesando pago... ¡La lógica de pago funcionará aquí!",
+             confirmButtonColor: "#1e3d58",
+         });
+    });
+
 });
-    </script>
+
+</script>
 <script src="js/login.js"></script>
 
     </body>
